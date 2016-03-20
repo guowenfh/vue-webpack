@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>hello vue</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+
+<body>
+    <div id="demo2">
+  <img title="{{name}}" alt="{{name}}" src= "{{url}}">
+  <input v-model="name">
+  <input v-model="url">
+</div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: '#demo2',
+        data: {
+          name: 'taobao',
+          url: 'https://www.taobao.com/favicon.ico'
+      }
+  });
+    </script>
+</body>
+
+</html>

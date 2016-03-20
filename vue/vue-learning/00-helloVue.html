@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>hello vue</title>
+
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+
+    </div>
+        <div id="input">
+            <input type="text" v-model="input_info">
+            <p>{{input_info}}</p>
+        </div>
+    <script src="js/vue.js"></script>
+    <script>
+    new Vue({
+        el: "#app",
+        data: {
+            message: "hello Vue.js"
+        }
+
+    });
+    new Vue({
+        el: "#input",
+        data: {
+            input_info: "书看"
+        }
+
+    });
+    </script>
+</body>
+
+</html>

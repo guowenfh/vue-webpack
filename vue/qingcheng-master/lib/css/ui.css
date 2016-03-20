@@ -1,0 +1,132 @@
+/* card */
+.card {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin: 0 14px 18px 0;
+  width: 300px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.card .cover {
+  display: block;
+  height: 120px;
+  width: 100%;
+}
+.card .card-title {
+  margin: 0;
+  padding: 0 14px;
+  color: white;
+  font-weight: 400;
+}
+.card-footer {
+  height: 40px;
+}
+.card-footer .card-description {
+  padding: 0 10px;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: #565655;
+  line-height: 40px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+/* messages */
+#message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 99999;
+}
+.message {
+  font-size: 16px;
+  line-height: 1.8;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #efefef;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #565656;
+}
+.message-success {
+  background-color: rgba(66, 185, 131, 0.9);
+  border-color: rgb(66, 185, 131);
+  color: white;
+}
+.message-error {
+  background-color: rgba(255, 68, 68, 0.9);
+  border-color: rgb(255, 68, 68);
+  color: white;
+}
+.message-warn {
+  background-color: rgba(255, 220, 0, 0.9);
+  border-color: rgb(255, 220, 0);
+}
+
+/* dropdown */
+.dropdown-caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: '';
+  vertical-align: -2px;
+  border: 4px solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+/* form */
+.form-description {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 2em;
+}
+.form-field {
+  padding: 10px 0;
+}
+.form-field input, .form-field textarea {
+  display: block;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  font-size: 18px;
+  padding: 6px 2px;
+  color: #454545;
+  background-color: transparent;
+  font-family: "Source Sans Pro", "Lucida Grande", "Helvetica Neue", "Arial", sans-serif;
+  transition: all 0.1s ease;
+  box-sizing: border-box;
+}
+.form-field input:focus, .form-field textarea:focus {
+  outline: none;
+  border-color: #acacac;
+}
+.form-check {
+  display: block;
+  color: #999;
+  padding: 10px 0;
+}
+.form-check input {
+  vertical-align: text-bottom;
+}
+.form-submit {
+  padding-top: 20px;
+}
+
+/* load more button */
+.load-more {
+  padding: 8px 0;
+  text-align: center;
+  color: #999;
+  background-color: #f0f0f0;
+  list-style-type: none;
+  cursor: pointer;
+}
+.load-more:hover {
+  background-color: #dadada;
+}

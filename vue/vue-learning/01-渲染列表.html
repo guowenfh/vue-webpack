@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>hello vue</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+
+<body>
+    <div class = "list">
+        <ul class="list-group">
+            <li v-for="person in peoples" class="list-group-item">
+                {{person.name}}:{{person.age}}
+            </li>
+        </ul>
+    </div>
+    <div class = "list">
+        <ul class="list-group">
+            <li v-for="person in peoples" class="list-group-item">
+                {{person.name}}:{{person.age}}
+            </li>
+        </ul>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+     new Vue({
+        el:".list",
+        data:{
+            peoples:[{
+                name: "小红",
+                age:20
+            }, {
+                name: "张三",
+                age: 12
+            }, {
+                name: "三五",
+                age: 78
+            },  {
+                name: "阿文",
+                age: 22
+            }, {
+                name: "李六",
+                age: 78
+            }, ]
+        }
+
+     });
+    </script>
+</body>
+
+</html>

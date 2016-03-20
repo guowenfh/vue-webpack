@@ -1,0 +1,14 @@
+
+body{
+    background-color: blue;
+}
+#qwe{
+    background-image: url(img/logo.png);
+        height: 200px;
+    width: 200px;
+}
+#asd{
+    background-image: url(img/5.jpg);
+    height: 200px;
+    width: 200px;
+}

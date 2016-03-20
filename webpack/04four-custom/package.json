@@ -1,0 +1,22 @@
+{
+  "name": "two-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "expose-loader": "^0.7.1",
+    "file-loader": "^0.8.5",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.2"
+  },
+  "author": "guowenfh",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^1.0.18"
+  }
+}

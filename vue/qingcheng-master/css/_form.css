@@ -1,0 +1,38 @@
+.button {
+  display: inline-block;
+  background-color: #42B983;
+  text-decoration: none;
+  padding: 0 24px;
+  color: white;
+  font: normal 500 13px/32px "Lucida Grande", "Helvetica Neue", "Arial", sans-serif;
+  border-radius: 32px;
+  border: none;
+}
+.button:hover {
+  cursor: pointer;
+}
+.button--circle {
+  background-color: white;
+  line-height: 28px;
+  border: 2px solid #efefef;
+  color: #999;
+  font-weight: 500;
+}
+.button--white {
+  background: white;
+  color: #999;
+  padding: 0 2px;
+}
+.button--green {
+  background-color: var(--green);
+}
+.button--red {
+  background-color: var(--red);
+}
+.button--yellow {
+  background-color: var(--yellow);
+}
+.button--hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
