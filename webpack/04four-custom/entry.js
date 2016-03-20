@@ -15,6 +15,6 @@ require('expose?Vue!VUE');
     new Vue({
         el: "body",
         data: {
-            message: "hello Vue.js"
+            message: "hello Vue.js 实现热更新！！对了吧！！"
         }
     });

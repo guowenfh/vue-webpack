@@ -57,7 +57,7 @@ require('VUE');
 ```
 npm install expose-loader --D
 ```
-然后像下面这样修改entry.js：
+然后像下面这样修改entry.js：（还可以用ES6语法，来进行引入，以后再讲）
 ```
 require('expose?Vue!VUE');
 new Vue({
@@ -69,3 +69,30 @@ new Vue({
 //html中添加{{message}}
 ```
 运行`webpack`，可以看到我们的"hello Vue.js"被正确的输出
+
+### 热加载
+
+当项目逐渐变大，webpack 的编译时间会变长，可以通过参数让编译的输出内容带有进度和颜色。
+```
+webpack --progress --colors
+```
+我们已经把webpack的内容了解了一部分了，那么在生产环境中，我不想每一次进行改变，都去命令行中运行我们的`webpack`的命令，我们应该怎么样实现改变后自动更新呢？
+
+webpack 为我们提供了一个`webpack --watch`，他会启动监听模式。开启监听模式后，没有变化的模块会在编译后缓存到内存中，而不会每次都被重新编译，所以监听模式的整体速度是很快的。
+
+去运行这个命令试试吧！！
+
+可以看到直接就可以运行成功，但是显然不够智能，还需要我们手动去刷新浏览器，（其实用liveload可以hack成自动刷新！）简直不能忍，所以使用`webpack-dev-server`会是一个更好的办法！
+
+它将在 localhost:8080 启动一个 express 静态资源 web 服务器，并且会以监听模式自动运行 webpack，在浏览器打开` http://localhost:8080/` 或 `http://localhost:8080/webpack-dev-server/` 可以浏览项目中的页面和编译后的资源输出，并且通过一个 socket.io 服务实时监听它们的变化并自动刷新页面。
+
+```
+# 安装
+npm install webpack-dev-server -g
+
+# 运行
+webpack-dev-server
+```
+去试试效果吧！（有可能只在`http://localhost:8080/webpack-dev-server/`才会自动刷新）
+
+下面我们就来试试怎么加载vue的文件！

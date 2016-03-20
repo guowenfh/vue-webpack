@@ -12,7 +12,8 @@
     "file-loader": "^0.8.5",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.14.1"
   },
   "author": "guowenfh",
   "license": "MIT",
