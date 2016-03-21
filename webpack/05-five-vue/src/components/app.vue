@@ -1,4 +1,5 @@
 <script>
+
     export default {
         el:"#app",
         data () {
@@ -11,15 +12,14 @@
 </script>
 
 <template>
-<div style="background-color:rgba(0,0,0,0.2)">
+<div>
     <h1>姓名：{{name}}</h1>
     <h2>{{age}}</h2>
-摄动方法
 </div>
 </template>
 
 <style lang="sass">
-    $qwe:red;
+    $qwe:blue;
     body{
         background-color: $qwe;
     }
