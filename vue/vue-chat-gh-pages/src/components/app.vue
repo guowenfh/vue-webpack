@@ -41,6 +41,7 @@
                 }
             }
         },
+        // 把引入的vue转化为模块！
         components: {
             card, list, text, message
         }
@@ -55,7 +56,7 @@
             <list :user-list="userList" :session="session" :session-index.sync="sessionIndex" :search="search"></list>
         </div>
         <div class="main">
-            <message :session="session" :user="user" :user-list="userList"></message> 
+            <message :session="session" :user="user" :user-list="userList"></message>
             <text :session="session"></text>
         </div>
     </div>
@@ -65,9 +66,9 @@
     #chat {
         overflow: hidden;
         border-radius: 3px;
-        
+
         .sidebar, .main {
-            height: 100%;   
+            height: 100%;
         }
         .sidebar {
             float: left;
@@ -77,7 +78,7 @@
         }
         .main {
             position: relative;
-            overflow: hidden;   
+            overflow: hidden;
             background-color: #eee;
         }
         .m-text {

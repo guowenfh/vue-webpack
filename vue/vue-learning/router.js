@@ -1,4 +1,3 @@
-
 var Hello = Vue.extend({
     template: "<p>hello is me</p>"
 });

@@ -1,0 +1,15 @@
+{
+  "name": "first-demo",
+  "version": "1.0.0",
+  "description": "this is my first-demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guowenfh",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^1.12.14"
+  }
+}
