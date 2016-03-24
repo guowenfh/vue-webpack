@@ -1,13 +1,37 @@
-## 从零开始加载一个.vue的文件！
+# webpack入坑之旅（五）加载vue单文件组件
 
-首先思考我们需要什么样的东西？应该按照什么样的步骤来？
+## 需要什么？
 
-第一步：
+在经过前面的四个练习，相信已经对于`webapck`有了一定的了解，现在我们就来一个综合案例，进一步甲申年对于`webpack`的理解。
 
-使用`npm init`来初始化我们的`package.json`文件的配置。
+首先我们应该思考要解析`.vue`类型的文件，需要什么样的东西？应该按照什么样的步骤来？我们应该怎么去搭建这个项目？
 
 
-要想加载一个vue文件，就必须项要加载很多对应的loader。建议用`npm install xxx-loader --save-dev`这样的命令一条一条的敲，去理解webpack的中的依赖管理关系。我的配置清单如下：
+## 开始
+
+### 第一步：初始化项目目录
+
+我们需要创建如下目录及文件夹，最终目录结构如下：
+
+```js
+- dist //文件生成目录
+    -- //自动生成
+- node_module //自动安装
+    -- ...
+- src //文件入口
+    -- components //组件存放
+        -- app.vue //主.vue
+    -- main.js //主.js
+- index.html //主.html
+- package.json //npm 配置
+- webpack.cofig.js // webpack配置
+```
+
+### 第二步：安装项目依赖
+
+如果你上面没有创建`package.json`文件的话，可以直接使用`npm init`来初始化我们的`package.json`文件的配置。
+
+想要去编译其他的文件就必须要加载很多对应的loader。比如`react`，`coffce`等等，要想加载一个`.vue`文件，也同样建议用`npm install xxx-loader --save-dev`这样的命令一条一条的敲，去理解webpack的中的依赖管理关系。我的配置清单如下：
 
 ```javascript
 //在实际项目中，json文件中不能出现注释
@@ -56,21 +80,7 @@
 
 如果你想省事的话，把填写`devDependencies`,`dependencies`字段，然后运行`npm install`就会自动安装所有的模块以及依赖。
 
-然后我们需要创建如下文件，最终目录结构如下：
 
-```
-- dist //文件生成目录
-    --。。。
-- node_module //自动安装
-    --。。。
-- src //文件入口
-    -- components //组件存放
-        -- app.vue //主.vue
-    -- main.js //主.js
-- index.html //主，展示.html
-- package.json //npm 配置
-- webpack.cofig.js // webpack配置
-```
 
 文件已经设置好了，接下来就到了我们关键的一步，配置`webpack.config.js`,清单如下：
 
