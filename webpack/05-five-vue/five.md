@@ -31,56 +31,56 @@
 
 如果你上面没有创建`package.json`文件的话，可以直接使用`npm init`来初始化我们的`package.json`文件的配置。
 
-想要去编译其他的文件就必须要加载很多对应的loader。比如`react`，`coffce`等等，要想加载一个`.vue`文件，也同样建议用`npm install xxx-loader --save-dev`这样的命令一条一条的敲，去理解webpack的中的依赖管理关系。我的配置清单如下：
+想要去编译其他的文件比如`react`，`coffce`等等，就必须要加载很多对应的`loader`。要想加载一个`.vue`文件。当然也是同样的道理。
+建议用`npm install xxx-loader --save-dev`这样的命令一条一条的敲。在命令行中，会有提示，可以帮助理解`webpack`的中的依赖管理关系。我的配置清单如下：
+**在实际项目中，json文件中不能出现注释**，在这里为了方便大家了解里面设置项的含义，就直接使用注释的方式加载后面了。
 
-```javascript
-//在实际项目中，json文件中不能出现注释
+```js
 {
-  "name": "05-five-vue",//项目名称
-  "version": "1.0.0",//版本
-  "description": "vue+webapck",//描述
-  "main": "index.js",//主文件
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --inline"
-  },//配置命令，成功后，可以使用 npm start 这样的方式去代替后面一长串的命令
-  "dependencies": {//项目依赖
-    "vue": "^1.0.18"
-  },
-  "devDependencies": {//各种各样的loader，用来解析想相应的文件格式。要解析vue并且完成相应的功能这些基本都是必须的。
-    "autoprefixer-loader": "^2.0.0",
-    "babel": "^6.3.13",
-    "babel-core": "^6.3.21",
-    "babel-loader": "^6.2.0",
-    "babel-plugin-transform-runtime": "^6.3.13",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-runtime": "^5.8.34",
-    "css-loader": "^0.16.0",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.3.0",
-    "node-sass": "^3.4.2",
-    "sass-loader": "^3.2.0",
-    "style-loader": "^0.12.3",
-    "url-loader": "^0.5.6",
-    "vue-hot-reload-api": "^1.2.2",
-    "vue-html-loader": "^1.2.0",
-    "vue-loader": "^7.2.0",
-    "webpack": "^1.12.0",
-    "webpack-dev-server": "^1.14.0"
-  },
-  "author": "guowenfh",//作者
-  "license": "MIT",//开源协议
-  "keywords": [//关键字
-    "vue",
-    "webpack"
-  ]
+    "name": "05-five-vue", //项目名称
+    "version": "1.0.0", //版本
+    "description": "vue+webapck", //描述
+    "main": "index.js", //主文件
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "webpack-dev-server --hot --inline"
+    }, //scripts指定了运行脚本命令的npm命令行缩写，比如这是的start指定了运行npm run start时，所要执行的命令。
+    "dependencies": { //项目依赖
+        "vue": "^1.0.18"
+    },
+    "devDependencies": { //各种各样的loader，用来解析想相应的文件格式。要解析vue并且完成相应的功能，这些基本都是必须的。
+        "autoprefixer-loader": "^2.0.0",
+        "babel": "^6.3.13",
+        "babel-core": "^6.3.21",
+        "babel-loader": "^6.2.0",
+        "babel-plugin-transform-runtime": "^6.3.13",
+        "babel-preset-es2015": "^6.3.13",
+        "babel-runtime": "^5.8.34",
+        "css-loader": "^0.16.0",
+        "file-loader": "^0.8.5",
+        "html-loader": "^0.3.0",
+        "node-sass": "^3.4.2",
+        "sass-loader": "^3.2.0",
+        "style-loader": "^0.12.3",
+        "url-loader": "^0.5.6",
+        "vue-hot-reload-api": "^1.2.2",
+        "vue-html-loader": "^1.2.0",
+        "vue-loader": "^7.2.0",
+        "webpack": "^1.12.0",
+        "webpack-dev-server": "^1.14.0"
+    },
+    "author": "guowenfh", //作者
+    "license": "MIT", //开源协议
+    "keywords": [ //关键字
+        "vue",
+        "webpack"
+    ]
 }
-
 ```
 
-如果你想省事的话，把填写`devDependencies`,`dependencies`字段，然后运行`npm install`就会自动安装所有的模块以及依赖。
+如果你想省事的话，直接复制上面的`devDependencies`,`dependencies`字段，并且填写到你的`package.json`文件中。然后运行`npm install`就会自动安装所有的模块以及依赖。
 
-
+### 第三步：配置webpack
 
 文件已经设置好了，接下来就到了我们关键的一步，配置`webpack.config.js`,清单如下：
 
@@ -130,7 +130,8 @@ module.exports = {
     // .vue的配置。需要单独出来配置
     vue: {
         loaders: {
-            css: 'style!css!autoprefixer'
+            css: 'style!css!autoprefixer',
+            html:'html-loader'
         }
     },
     // 转化成es5的语法

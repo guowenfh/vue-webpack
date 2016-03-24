@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --inline"
+    "start": "webpack-dev-server --inline "
   },
   "dependencies": {
     "vue": "^1.0.18"
@@ -25,8 +25,8 @@
     "sass-loader": "^3.2.0",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
-    "vue-hot-reload-api": "^1.2.2",
     "vue-html-loader": "^1.2.0",
+    "vue-hot-reload-api": "^1.2.2",
     "vue-loader": "^7.2.0",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.14.0"

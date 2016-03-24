@@ -36,7 +36,13 @@ npm init
 npm install webpack --save-dev
 # 简单的写法：-_-,缩写形式 
 npm i webpack -D
+# –save：模块名将被添加到dependencies，可以简化为参数-S。
+# –save-dev: 模块名将被添加到devDependencies，可以简化为参数-D。
+
 ```
+
+
+
 安装好之后我们的`package.json`的目录应该是这样的：
 ```json
 {

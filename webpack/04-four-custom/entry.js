@@ -9,12 +9,15 @@ document.getElementById('app').innerHTML="这是我第一个打包成功的程�
 //require("!style!css!./style.css");
 require("./style.css");
 
+var Vue =require("vue");
+// var jQuery = require("jquery");
+
 // require("./vue.min.js");
-require('expose?Vue!VUE');
+// require('expose?Vue!VUE');
 // import Vue form ("VUE")
     new Vue({
         el: "body",
         data: {
-            message: "hello Vue.js 实现热更新！！对了吧！！"
+            message: "hell阿三地方adfue.js 实现热更阿三地方新！！对了吧！！！！阿三地方"
         }
     });

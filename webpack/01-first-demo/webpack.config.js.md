@@ -79,3 +79,37 @@ loaders 告诉webpack要利用哪种加载器来处理test所匹配的文件
 loaders 的安装方法
 
 $ npm install xxx-loader --save-dev
+
+
+
+## 在 Webpack 中使用别名
+
+当我需要在项目中添加别的js库时，就需要引入该模块。
+模块别名定义，方便后续直接引用别名，无须多写长长的地址，比如我们现在想要把`./vue.min.js`压缩文件打包.
+
+别名（resolve.alias） 是Webpack的一个配置项，它的作用是把用户的一个请求重定向到另一个路径，例如通过修改`webpack.config.js` 配置文件，VUE为别名加入：
+
+例如我们之前不用别名，在`entry.js`中，想要把vue打包。`require('vue.min.js');`
+设置别名，就可以修改为
+```
+require('VUE');
+```
+两者效果相同
+
+在上节中，我们把需要的vue打包了，但是现在前台页面想要直接用还是不可以的，需要我们把vue暴露出来。
+你可能在全局中使用了一个压缩版本的 vue，为了修复你可以安装这个暴露全局加载器
+```
+npm install expose-loader --save-dev
+```
+然后像下面这样修改entry.js：（还可以用ES6语法，来进行引入，以后再讲）
+```
+require('expose?Vue!VUE');
+new Vue({
+    el: "body",
+    data: {
+        message: "hello Vue.js"
+    }
+});
+//html中添加{{message}}
+```
+运行`webpack`，可以看到我们的"hello Vue.js"被正确的输出

@@ -16,10 +16,11 @@ module.exports = {
     // 服务器配置相关，自动刷新!
         devServer: {
         historyApiFallback: true,
-        hot: true,
+        hot: false,
         inline: true,
         grogress: true,
     },
+
     // 加载器
     module: {
         // 加载器
@@ -40,9 +41,9 @@ module.exports = {
         ]
     },
     // .vue的配置。需要单独出来配置
-    vue: {
+        vue: {
         loaders: {
-            css: 'style!css!autoprefixer'
+            css: 'style!css!autoprefixer!sass?sourceMap'
         }
     },
     // 转化成es5的语法
@@ -62,3 +63,5 @@ module.exports = {
     // 开启source-map，webpack有多种source-map，在官网文档可以查到
     devtool: 'eval-source-map'
 };
+
+
