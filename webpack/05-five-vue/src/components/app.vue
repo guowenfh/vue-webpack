@@ -19,15 +19,20 @@
 </template>
 
 <style lang="sass">
-    $qwe:blue;
+    $qwe:#098;
     body{
         background-color: $qwe;
-    }
-    h1{
-        background-color: #eee;
-        color: red;
-    }
-    h2{
-        background-color: #999;
+        h1{
+            background-color: #eee;
+            color: red;
+            transform: translate(10%, 10%);
+        }
+        h1:hover{
+            height:100px;
+        }
+
+        h2{
+            background-color: #999;
+        }
     }
 </style>

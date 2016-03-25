@@ -20,6 +20,7 @@ module.exports = {
         inline: true,
         grogress: true,
     },
+    // "vue-hot-reload-api": "^1.2.2",
 
     // 加载器
     module: {

@@ -43,7 +43,7 @@
     "main": "index.js", //主文件
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack-dev-server --hot --inline"
+        "start": "webpack-dev-server --inline"
     }, //scripts指定了运行脚本命令的npm命令行缩写，比如这是的start指定了运行npm run start时，所要执行的命令。
     "dependencies": { //项目依赖
         "vue": "^1.0.18"
@@ -63,7 +63,6 @@
         "sass-loader": "^3.2.0",
         "style-loader": "^0.12.3",
         "url-loader": "^0.5.6",
-        "vue-hot-reload-api": "^1.2.2",
         "vue-html-loader": "^1.2.0",
         "vue-loader": "^7.2.0",
         "webpack": "^1.12.0",
@@ -79,6 +78,7 @@
 ```
 
 如果你想省事的话，直接复制上面的`devDependencies`,`dependencies`字段，并且填写到你的`package.json`文件中。然后运行`npm install`就会自动安装所有的模块以及依赖。
+
 
 ### 第三步：配置webpack
 
@@ -102,9 +102,9 @@ module.exports = {
         // 公共文件生成的地址
     },
     // 服务器配置相关，自动刷新!
-        devServer: {
+    devServer: {
         historyApiFallback: true,
-        hot: true,
+        hot: false,
         inline: true,
         grogress: true,
     },
@@ -127,11 +127,10 @@ module.exports = {
             { test: /\.(html|tpl)$/, loader: 'html-loader' },
         ]
     },
-    // .vue的配置。需要单独出来配置
+    // .vue的配置。需要单独出来配置，其实没什么必要--因为我删了也没保错，不过这里就留这把，因为官网文档里是可以有单独的配置的。
     vue: {
         loaders: {
             css: 'style!css!autoprefixer',
-            html:'html-loader'
         }
     },
     // 转化成es5的语法
@@ -156,93 +155,132 @@ module.exports = {
 
 请详细查看这里面的设置，我这里都是很简单的配置，在你的项目中，还可以更进一步的对于入口文件和输出文件进行更加深入的定制。
 
-并且在这里生成的css文件还会插到js中，有时我们需要更进一步的把它独立出来，这时就会用到webpack的插件，在这里先不说（因为我也不会。。）
+并且在这里生成的css文件还会插到js中，有时我们需要更进一步的把它独立出来，然后在html中引入这时就会用到`webpack`的插件，在这里先不说（因为我暂时没用到，没有试验过，好像也不麻烦，可以的话下篇再试试）
 
-接下来就是我们要展示的文件的编写了。
+### 第四步：编写代码
+
+接下来就是我们要展示的文件的编写了，我直接把代码贴上来了。
+
 index.html：
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>webpack vue</title>
-    <style>
-        #app {
-            margin: 20px auto;
-            width: 800px;
-            height: 600px;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>webpack vue</title>
+        <style>
+            #app {
+                margin: 20px auto;
+                width: 800px;
+                height: 600px;
+            }
+        </style>
+    </head>
 
-<body>
-    <div id="app"></div>
-    <script src="dist/main.js"></script>
-</body>
+    <body>
+        <div id="app"></div>
+        <script src="dist/main.js"></script>
+    </body>
 
-</html>
-
+    </html>
 ```
 
-main.js：
+这里是main.js的内容：
 
 ```javascript
 //es6语法：
-import Vue from "../node_modules/vue/dist/vue.min.js";
+import Vue from "../node_modules/vue/dist/vue.min.js";//其实不用写完，会自动查找。
 //外部引入别的库都可以用这样的方式，比如jquery等。。
 //引入我们编写的测试用vue文件。
 import app from './components/app';
 
-Vue.config.debug = true;
+Vue.config.debug = true;//开启错误提示
 
 new Vue(app);
 
 ```
 
+这里是app.vue：
+
 ```html
 <script>
-//es6
+    //es6
     export default {
         el:"#app",
-     //
-        data () {
+         //data:function(){}，下面是es6写法
+         data () {
             return {
                 name:"guowenfh",
-                age:"21"
+                age:"2q1"
             }
         }
     }
 </script>
-
 <template>
-<div>
-    <h1>姓名：{{name}}</h1>
-    <h2>{{age}}</h2>
-</div>
+    <div>
+        <h1>姓名：{{name}}</h1>
+        <h2>{{age}}</h2>
+    </div>
 </template>
-
 <style lang="sass">
-    $qwe:blue;
+    /*一定要加lang不然无法编译*/
+    /*测试一下对sass的编译*/
+    $qwe:#098;
     body{
         background-color: $qwe;
-    }
-    h1{
-        background-color: #eee;
-        color: red;
-    }
-    h2{
-        background-color: #999;
+        h1{
+            background-color: #eee;
+            color: red;
+            transform: translate(10%, 10%);/*测试自动添加前缀*/
+        }
+        h1:hover{
+            height:100px;
+        }
+
+        h2{
+            background-color: #999;
+        }
     }
 </style>
 
 ```
+### 第五步：修改自动刷新设置
 
-内容就这些了，因为在上面的`package.json`中已经进行了`scripts`项的配置。运行`npm start`，打开localhost:8080
+下面再单独的再谈一下关于自动刷新的实现，首先需要说明，在上一篇博客中的自动刷新实现，是有问题的。只能改变css样式，使颜色进行变化。对于html里面的内容改变时，浏览器并不会自动刷新。
 
-可以看到蓝色的背景已经出来了,去改变一下css？背景颜色？ 看看浏览器会不会自动刷新？
+**注意点一：**
+首先我们看到`package.json`中`scripts`字段中的`"start": "webpack-dev-server --inline"`。这里如果按照网上的方法在后面再添加上`--hot`的话，只会对于`app.vue`中的`<style>`标签内的css起效果。
+
+**注意点二：**
+因为我们没有加`--hot`，所以在`webpack.cofig.js`中需要对于`devServer`进行一些配置，如下：（主要是是`hot`设置为了false）。
+
+```js
+devServer: {
+    historyApiFallback: true,
+    hot: false,
+    inline: true,
+    grogress: true,
+}
+```
+这样设置了之后按下保存相当于按下了F5浏览器整个刷新。而不是局部刷新。（如果你实现了局部刷新，并且没有其他问题，那请教教我^_^）
+
+**注意点三：**
+
+注意`package.json`的loader安装中的`"vue-hot-reload-api": "^1.2.2"`。它有可能是导致你不能自动刷新的凶手(我现在都没搞明白到底该安装，还是取消)
+
+## 结束
+
+步骤都走完了，因为在上面的`package.json`中已经进行了`scripts`项的配置。运行`npm start`，打开`localhost:8080`
+
+可以看到设置的背景色已经出来了,去改变一下背景颜色？data？template？ 
+
+看看浏览器会不会自动刷新？
+
+---
 
 如果你按照我的步骤，并且，npm包安装没有错误的话，应该就能成功了。
 
-不行的话，再仔细去看看有什么地方没有编写对吧！
+不行的话，请再仔细对照去看看有什么地方没有编写对吧！
+
