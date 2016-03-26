@@ -89,6 +89,10 @@ npm install webpack-dev-server -g
 # 运行
 webpack-dev-server
 ```
+
+
+## 试试vue
+
 我们来试试使用vue能配合webpack能不能实现自动刷新。(有关vuejs的知识，大家可以可以先自行上[官网查看](http://cn.vuejs.org/guide/)，我在接下来可能也会一步一步的把vue的例子全部敲一遍，再放到github上来让点评)
 
 首先运行`npm install vue -save`将vue添加到我们的项目依赖中去。

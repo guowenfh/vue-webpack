@@ -8,6 +8,7 @@ Vue.use(VueRouter);
 // 引入组件！
 import index from './components/app.vue';
 import list from './components/list.vue';
+import hello from './components/hello.vue';
 //开启debug模式
 Vue.config.debug = true;
 
@@ -31,7 +32,13 @@ var router = new VueRouter();
 router.map({
     '/index':{
         name:'index',
-        component:index
+        component:index,
+        subRoutes:{
+            '/hello':{
+                name:'hello',
+                component:hello
+            }
+        }
     },
     '/list': {
         name:'list',

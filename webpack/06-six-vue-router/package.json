@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --inline"
+    "start": "webpack-dev-server --inline"
   },
   "dependencies": {
-    "vue": "^1.0.18"
+    "vue": "^1.0.18",
+    "vue-router": "^0.7.11"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -28,7 +29,6 @@
     "vue-hot-reload-api": "^1.2.2",
     "vue-html-loader": "^1.2.0",
     "vue-loader": "^7.2.0",
-    "vue-router": "^0.7.11",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.14.0"
   },

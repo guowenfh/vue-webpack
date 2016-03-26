@@ -29,8 +29,6 @@ module.exports = {
     //     return entry;
     // };
 
-
-
     //输出位置
     output: {
         path: path.join(__dirname, './dist'), //配置输出路径，文件地址，使用绝对路径形式
@@ -44,7 +42,7 @@ module.exports = {
     // 服务器配置相关，自动刷新!
     devServer: {
         historyApiFallback: true,
-        hot: true,
+        hot: false,
         inline: true,
         grogress: true,
     },

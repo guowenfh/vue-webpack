@@ -18,6 +18,6 @@ var Vue =require("vue");
     new Vue({
         el: "body",
         data: {
-            message: "hell阿三地方adfue.js 实现热更阿三地方新！！对了吧！！！！阿三地方"
+            message: "hello vue"
         }
     });
