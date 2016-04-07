@@ -7,13 +7,14 @@
                 age:"21"
             }
         },
+
         methods :{
             golist (){
                 this.$route.router.go({name:"list"});
             }
         },
         components:{
-            hello,list
+            hello
         }
 
 
@@ -38,6 +39,7 @@
     $qwe:pink;
     body{
         background-color: $qwe;
+        color:red;
     }
     h1{
         background-color: blue;
