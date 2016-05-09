@@ -1,12 +1,12 @@
 {
-  "name": "05-five-vue",
+  "name": "07-seven-some",
   "version": "1.0.0",
   "description": "vue+webapck",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --inline"
-  },
+    "build": "webpack --config webpack.config.prod.js",
+    "dev": "webpack-dev-server --progress --profile --colors --inline "
+   },
   "dependencies": {
     "vue": "^1.0.18",
     "vue-router": "^0.7.11"
@@ -35,7 +35,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "author": "guowenfh",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "vue",
     "webpack"

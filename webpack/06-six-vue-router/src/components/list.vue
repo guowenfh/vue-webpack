@@ -30,7 +30,7 @@
     </li>
 </ul>
 </template>
-<style >
+<style>
 li{
     height: 30px;
     line-height: 30px;

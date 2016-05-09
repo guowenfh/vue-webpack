@@ -1,0 +1,26 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font: normal 400 16px/1.5 "Source Sans Pro", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  position: relative;
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.8;
+}
+
+textarea {
+  font: normal 400 16px/1.5 "Source Sans Pro", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+}

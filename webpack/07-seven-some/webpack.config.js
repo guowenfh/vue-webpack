@@ -1,21 +1,18 @@
+var webpack = require("webpack");
 var path = require('path');
 // NodeJS中的Path对象，用于处理目录的对象，提高开发效率。
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 // 模块导入
 module.exports = {
     // 入口文件地址，不需要写完，会自动查找
-    entry: './src/main',
-
-
+    entry: './src/main.js',
     //输出位置
     output: {
-        path: path.join(__dirname, './dist'), //配置输出路径，文件地址，使用绝对路径形式
+        path: path.join(__dirname, './build'), //配置输出路径，文件地址，使用绝对路径形式
         filename: '[name].js',
         //关于filename 我们有个变量就是 [name] = entry的key  当然还有别的变量比如[id],[hash]等,大家可以自行发挥
         //我们也能把filename写成  filename : [name]/[name].[name].js 也是可以的
         //[name]这里是webpack提供的根据路口文件自动生成的名字
-        publicPath: '/dist/'
+        publicPath: '/build/'
             // 公共文件生成的地址
     },
     // 服务器配置相关，自动刷新!
@@ -87,54 +84,10 @@ module.exports = {
         extensions: ['', '.js', '.vue'],
         // 别名，可以直接使用别名来代表设定的路径以及其他
         alias: {
-            filter: path.join(__dirname, './src/filters'),
+            views: path.join(__dirname, './src/views'),
             components: path.join(__dirname, './src/components')
         }
     },
-    plugins: [
-        new HtmlwebpackPlugin({
-            title: 'Webpack-demos'
-        }),
-        new OpenBrowserPlugin({
-            url: 'http://localhost:8080'
-        })
-    ],
     // 开启source-map调试模式，webpack有多种source-map，在官网文档可以查到
     devtool: 'eval-source-map'
 };
-
-
-
-
-
-
-
-
-
-
-
-
-    //需要用到glob模块
-
-    // var glob = require('glob');
-    // var getEntry = function () {
-    //     var entry = {};
-    //     //首先我们先读取我们的开发目录
-    //     glob.sync('./source/**/*.js').forEach(function (name) {
-    //         var n = name.slice(name.lastIndexOf('source/') + 7, name.length - 3);
-    //         n = n.slice(0, n.lastIndexOf('/'));
-    //         //接着我对路径字符串进行了一些裁剪成想要的路径
-    //         entry[n] = name;
-    //     });
-
-    //     console.log(entry);
-    //     /**
-    //     *    entry = {
-    //     *               'crowd/index' : './source/crowd/index/index.js',
-    //     *               'index/index' : './source/index/index/index.js'
-    //     *            }
-    //     *
-    //     **/
-    //     //最后返回entry  给 webpack的entry
-    //     return entry;
-    // };
