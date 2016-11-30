@@ -18,7 +18,7 @@ module.exports = {
         historyApiFallback: true,
         hot: false,
         inline: true,
-        grogress: true,
+        progress: true,
     },
     // "vue-hot-reload-api": "^1.2.2",
 
