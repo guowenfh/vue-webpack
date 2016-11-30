@@ -261,7 +261,7 @@ devServer: {
     historyApiFallback: true,
     hot: false,
     inline: true,
-    grogress: true,
+    progress: true,
 }
 ```
 这样设置了之后按下保存相当于按下了F5浏览器整个刷新。而不是局部刷新。（如果你实现了局部刷新，并且没有其他问题，那请教教我^_^）
