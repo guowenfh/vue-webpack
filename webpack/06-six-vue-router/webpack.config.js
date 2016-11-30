@@ -44,7 +44,7 @@ module.exports = {
         historyApiFallback: true,
         hot: false,
         inline: true,
-        grogress: true,
+        progress: true,
     },
     // 加载器
     module: {

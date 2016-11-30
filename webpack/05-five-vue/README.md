@@ -106,7 +106,7 @@ module.exports = {
         historyApiFallback: true,
         hot: false,
         inline: true,
-        grogress: true,
+        progress: true,
     },
     // 加载器
     module: {
@@ -274,7 +274,7 @@ devServer: {
 
 步骤都走完了，因为在上面的`package.json`中已经进行了`scripts`项的配置。运行`npm start`，打开`localhost:8080`
 
-可以看到设置的背景色已经出来了,去改变一下背景颜色？data？template？ 
+可以看到设置的背景色已经出来了,去改变一下背景颜色？data？template？
 
 看看浏览器会不会自动刷新？
 
