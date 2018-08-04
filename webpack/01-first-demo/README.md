@@ -74,7 +74,7 @@ npm i webpack webpack-cli -D
 </head>
 <body>
     <h1 id="app"></h1>
-    <script src="bundle.js"></script>
+    <script src="./dist/bundle.js"></script>
     <!-- 注意这里引入的不是我们创建的文件，而是用webpack生成的文件 -->
 </body>
 </html>
@@ -91,12 +91,12 @@ document.getElementById('app').innerHTML="这是我第一个打包成功的程�
 
 ```js
   "scripts": {
-    "start": "webpack entry.js bundle.js"
+    "start": "webpack entry.js --output-filename=./bundle.js --mode=development"
   },
 ```
-然后我们运行 `npm run start`,就会执行 `webpack entry.js bundle.js`。
+然后我们运行 `npm run start`,就会执行 `webpack entry.js --output-filename=./bundle.js --mode=development`。
 
-或者我们可以借用 npm 内置的执行器做到同样的事情 `npx webpack entry.js bundle.js`
+或者我们可以借用 npm 内置的执行器做到同样的事情 `npx webpack entry.js --output-filename=./bundle.js --mode=development`
 
 
 在浏览器中打开`index.html`，就能看到我们设置的文字啦！：**这是我第一个打包成功的程序**
@@ -120,7 +120,7 @@ document.getElementById('app').innerHTML="这是我第一个打包成功的程�
 require("./first.js");
 ```
 
-再来进行一次重复的工作，再打包一次。`webpack entry.js bundle.js`，如果成功，打包过程会显示日志：
+再来进行一次重复的工作，再打包一次。`webpack entry.js --output-filename=./bundle.js --mode=development`，如果成功，打包过程会显示日志：
 
 ```sh
 Hash: b1cfe7ff9d75ce235dc9

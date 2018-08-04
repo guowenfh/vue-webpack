@@ -4,7 +4,7 @@
   "description": "this is my first-demo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack entry.js --output-filename=./bundle.js --mode=development"
   },
   "author": "guowenfh",
   "license": "MIT",
