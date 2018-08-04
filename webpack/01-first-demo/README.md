@@ -5,7 +5,7 @@
 
 ## 什么是webpack
 
-> 其实不是特别想写这个东西，但貌似所有的教程都有这个。随便写两句吧。可以直接跳过。 
+> 其实不是特别想写这个东西，但貌似所有的教程都有这个。随便写两句吧。可以直接跳过。
 
 Webpack 是德国开发者 Tobias Koppers 开发的模块加载器兼打包工具，在webpack中，它能把各种资源，例如JS（含JSX）、coffee、样式（含less/sass）、图片等都作为模块来使用和处理。因此, Webpack 当中 js 可以引用 css, css 中可以嵌入图片 dataUrl。
 对应各种不同文件类型的资源, Webpack 有对应的模块 loader比如vue用的是`vue-loader`当然这是后话，在后面我们再来说。
@@ -17,25 +17,25 @@ Webpack 是德国开发者 Tobias Koppers 开发的模块加载器兼打包工�
 
 ## 安装
 
-前提：因为webpack是一个基于node的项目，所以首先需要确保你的电脑里面已经安装了`node.js`，以及`npm`。在这里我使用的版本是：`node：v5.8.0  ，npm：3.7.3`,若是版本问题，请更新到最新版。
+前提：因为webpack是一个基于node的项目，所以首先需要确保你的电脑里面已经安装了`node.js`，以及`npm`。在这里我使用的版本是：`node：v8.11.2  ，npm：6.2.0`,若是版本问题，请更新到最新版。
 若是有出现npm安装过慢的情况，可以使用[nrm](https://github.com/Pana/nrm)这个项目来进行npm源地址的切换。
 
-首先我们直接进行全局的安装，运行如下命令：`npm install webpack -g`，可能需要一点时间。
+首先我们直接进行全局的安装，运行如下命令：`npm install webpack webpack-cli -g`，可能需要一点时间。
 
-安装成功后，在命令行输入`webpack -h`即可查看当前安装的版本信息。以及可以使用的指令。   
+安装成功后，在命令行输入`webpack -h`即可查看当前安装的版本信息。以及可以使用的指令。
 
 当然，我们都应该将webapck安装到当前的项目依赖中，此时就可以使用项目的本这样就可以使用项目本地版本的 Webpack。
 
 ```sh
 # 确保已经进入项目目录
 # 确定已经有 package.json，没有就通过
-npm init 
+npm init
 # 创建，直接一路回车就好，后面再来详细说里面的内容。
 # 安装 webpack 依赖
 
-npm install webpack --save-dev
-# 简单的写法：-_-,缩写形式 
-npm i webpack -D
+npm install webpack webpack-cli --save-dev
+# 简单的写法：-_-,缩写形式
+npm i webpack webpack-cli -D
 # –save：模块名将被添加到dependencies，可以简化为参数-S。
 # –save-dev: 模块名将被添加到devDependencies，可以简化为参数-D。
 
@@ -57,10 +57,10 @@ npm i webpack -D
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "webpack": "^1.12.14"
+    "webpack": "^4.16.4",
+    "webpack-cli": "^3.1.0"
   }
 }
-
 ```
 既然环境都已经安装好了，那么我们就开始来用webpack进行我们的第一个打包运行程序吧！
 
@@ -87,7 +87,16 @@ document.getElementById('app').innerHTML="这是我第一个打包成功的程�
 
 文件都已经创建成功了，那么就开始我们的打包吧！
 
-`webpack entry.js bundle.js`
+由于我们将 `webpack` 安装在了 项目目录。所以是不会向终端写入 `webpack` 命令的，这时我们可以像 npm script 中加入命令 :
+
+```js
+  "scripts": {
+    "start": "webpack entry.js bundle.js"
+  },
+```
+然后我们运行 `npm run start`,就会执行 `webpack entry.js bundle.js`。
+
+或者我们可以借用 npm 内置的执行器做到同样的事情 `npx webpack entry.js bundle.js`
 
 
 在浏览器中打开`index.html`，就能看到我们设置的文字啦！：**这是我第一个打包成功的程序**
