@@ -1,17 +1,24 @@
-var Webpack = require("webpack");
+const webpack = require("webpack");
+const path = require('path')
 module.exports = {
     entry: ["./entry.js"],
     output: {
-        path: __dirname,
+        path: path.resolve(__dirname, 'dist'),
         filename: "bundle.js"
     },
+    mode: 'development',
     module: {
-        loaders: [{
-            test: /\.css$/,
-            loader: "style!css"
-        }]
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
     },
     plugins: [
-        new Webpack.BannerPlugin("这里是打包文件头部注释")
+        new webpack.BannerPlugin("这里是打包文件头部注释")
     ]
 }

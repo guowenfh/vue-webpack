@@ -1,18 +1,18 @@
 {
-    "name": "two-deploy",
-    "version": "1.0.0",
-    "description": "",
-    "main": "bundle.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+  "name": "two-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "webpack"
+  },
+  "devDependencies": {
 
-    "devDependencies": {
-        "css-loader": "^0.23.1",
-        "style-loader": "^0.13.0",
-        "webpack": "^1.12.2"
-    },
-
-    "author": "guowenfh",
-    "license": "MIT"
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.4",
+    "webpack-cli": "^3.1.0"
+  },
+  "author": "guowenfh",
+  "license": "MIT"
 }

@@ -10,20 +10,31 @@ Webpack在执行的时候，除了在命令行传入参数，还可以通过指�
 所以现在我们就来新建一个`webpack.config.js`，在里面填写进下面的内容：
 
 ```js
-var Webpack = require("webpack");
+const webpack = require("webpack");
+const path = require('path')
 module.exports = {
     entry: ["./entry.js"],
     output: {
-        path: __dirname,
+        path: path.resolve(__dirname, 'dist'),
         filename: "bundle.js"
     },
+    mode: 'development',
     module: {
-        loaders: [{
-            test: /\.css$/,
-            loader: "style!css"
-        }]
-    }
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new webpack.BannerPlugin("这里是打包文件头部注释")
+    ]
 }
+
 ```
 
 我们现在仅仅需要运行:`webpack`，如果你的配置没有问题的话，可以在命令行中看到正确的输出，因为这个命令会自动在当前目录中查找`webpack.config.js`的配置文件，并按照里面定义的规则来进行执行。
@@ -65,8 +76,12 @@ plugins: [
 ```js
 /*! 这里是打包文件头部注释 */
 /******/ (function(modules) { // webpackBootstrap
-/******/    // The module cache
-/******/    var installedModules = {};
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
         /***  省略 ***/
         })
 ```
