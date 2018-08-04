@@ -1,25 +1,32 @@
-var Webpack = require("webpack");
+const webpack = require("webpack");
+const path = require('path')
 module.exports = {
-    entry: "./entry.js",
+    entry: ["./entry.js"],
     output: {
-        path: __dirname,
-        filename: "bundle.js"
+        path: path.resolve(__dirname, 'dist'),
+        filename: "bundle.js",
     },
+    mode: 'development',
     module: {
-        loaders: [{
-            test: /\.css$/,
-            loader: "style-loader!css-loader"
-        }, {
-            test: /\.(jpg|png)$/,
-            loader: 'url-loader?limit=8192&name=./[name].[ext]'
-        }]
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                  limit: 8192,
+                  name: path.posix.join('dist','img/[name].[hash:7].[ext]')
+                }
+            },
+        ]
     },
     plugins: [
-        new Webpack.BannerPlugin("这里是打包文件头部注释")
-    ],
-    // resolve: {
-    //     alias: {
-    //         VUE: "./vue.min.js"
-    //     }
-    // }
+        new webpack.BannerPlugin("这里是打包文件头部注释")
+    ]
 }

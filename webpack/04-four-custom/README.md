@@ -14,10 +14,17 @@ npm install url-loader --save-dev
 然后在我们的`webpack.config.js`中添加这段：
 
 ```js
-loaders: [
-    { test: /\.css$/, loader: "style!css" },
-    { test: /\.(png|jpg)$/, loader: "url-loader?limit=8192" }   // 添加到这！并且会按照文件大小, 或者转化为 base64, 或者单独作为文件
-    //在大小限制后可以加上&name=./[name].[ext]，会将我们的文件生成在设定的文件夹下。
+rules: [
+    {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+            limit: 8192,
+            name: path.posix.join('dist','img/[name].[hash:7].[ext]')
+        }
+        // 添加到这并且会按照文件大小, 或者转化为 base64, 或者单独作为文件
+        //在大小限制可以name属性/[name].[ext]，会将我们的文件生成在设定的文件夹下。
+    },
 ]
 ```
 在html中添加：
@@ -84,10 +91,10 @@ webpack 为我们提供了一个`webpack --watch`，他会启动监听模式。�
 
 ```sh
 # 安装
-npm install webpack-dev-server -g
+npm install webpack-dev-server -D
 
 # 运行
-webpack-dev-server
+npx webpack-dev-server --config ./webpack.config.js
 ```
 
 
@@ -101,13 +108,15 @@ webpack-dev-server
 
 ```js
 // import Vue form ("vue") //如果你安装了babel-loader的话，可以直接使用ES6的语法
-var Vue =require("vue");
-    new Vue({
-        el: "body",
-        data: {
-            message: "hello vue.js"
-        }
-    });
+
+const Vue =require('vue/dist/vue'");
+
+new Vue({
+  el: '#main',
+  data: {
+    message: 'hello vue.js'
+  }
+})
 
 ```
 
