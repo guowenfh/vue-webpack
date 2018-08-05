@@ -22,9 +22,7 @@ const routes = [
   {
     path: '/index',
     component: Index,
-    children: [
-        { path: 'hello', component: Hello }
-    ]
+    children: [{ path: 'hello', component: Hello }]
   },
   {
     path: '/list',

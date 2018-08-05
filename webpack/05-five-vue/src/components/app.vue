@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
-        <h1>姓名：{{name}}</h1>
-        <h2>{{age}}</h2>
-    </div>
+  <div id="app">
+    <h1>姓名：{{name}}</h1>
+    <h2>{{age}}</h2>
+  </div>
 </template>
 <script>
 export default {
