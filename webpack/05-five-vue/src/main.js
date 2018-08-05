@@ -1,5 +1,7 @@
-import Vue from "../node_modules/vue/dist/vue.min.js";
-import app from './components/app';
-Vue.config.debug = true;
+import Vue from "vue";
+import App from './components/app';
 
-new Vue(app);
+new Vue({
+    el: '#app',
+    render: h => h(App)
+})
