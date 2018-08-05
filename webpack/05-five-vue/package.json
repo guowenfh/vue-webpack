@@ -20,7 +20,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
+    "babel-preset-0": "^6.24.1",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
