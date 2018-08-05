@@ -5,8 +5,6 @@
 但是我们最终的目的还是要实现单页面应用程序，这个时候我们就必不可少的需要使用到路由管理器来进行SPA的开发，vue官方为我们提供了一个官方库[vue-router](https://github.com/vuejs/vue-router)，并且配有对应的[中文文档](https://router.vuejs.org/zh/)。关于里面的内容大家自行前去观看。在这里，只会把我们需要的东西拿出来讲。
 
 
-[TOC]
-
 ## vue组件
 
 > [官网对于组件讲解](http://cn.vuejs.org/guide/components.html)
@@ -113,7 +111,7 @@ router.map({
 router.start(App, '#app')
 ```
 
-我个人感觉这部分还是很好理解的，官方也给了一个[在线示例应用](http://jsfiddle.net/yyx990803/xyu276sa/)。很好的展现了它的路由切换。
+我个人感觉这部分还是很好理解的，官方也给了一系列的例子：[查看仓库的 README.md 来运行它们](https://github.com/vuejs/vue-router/tree/dev/examples)。很好的展现了它的路由切换。
 
 简单的介绍到这，下面最重要的部分到了，看看如何结合我们定义的`.vue`单文件组件。
 
@@ -123,7 +121,7 @@ router.start(App, '#app')
 
 ### 定义路由规则
 
-**最主要是`main.js`**的变化，直接在文件中讲解了：
+** 最主要是`main.js` ** 的变化，直接在文件中讲解了：
 
 ```js
 import Vue from 'vue'

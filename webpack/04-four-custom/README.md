@@ -100,7 +100,7 @@ npx webpack-dev-server --config ./webpack.config.js
 
 ## 试试vue
 
-我们来试试使用vue能配合webpack能不能实现自动刷新。(有关vuejs的知识，大家可以可以先自行上[官网查看](http://cn.vuejs.org/guide/)，我在接下来可能也会一步一步的把vue的例子全部敲一遍，再放到github上来让点评)
+我们来试试使用vue能配合webpack能不能实现自动刷新。(有关vuejs的知识，大家可以可以先自行上[官网查看](http://cn.vuejs.org/guide/))
 
 首先运行`npm install vue -save`将vue添加到我们的项目依赖中去。
 
@@ -109,7 +109,7 @@ npx webpack-dev-server --config ./webpack.config.js
 ```js
 // import Vue form ("vue") //如果你安装了babel-loader的话，可以直接使用ES6的语法
 
-const Vue =require('vue/dist/vue'");
+const Vue =require('vue/dist/vue');
 
 new Vue({
   el: '#main',
