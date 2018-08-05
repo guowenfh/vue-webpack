@@ -10,14 +10,12 @@
 
         methods :{
             golist (){
-                this.$route.router.go({name:"list"});
+                this.$router.push({path:"/list"})
             }
         },
-        components:{
-            hello
-        }
-
-
+        // components:{
+        //     hello
+        // }
     }
 </script>
 
@@ -25,18 +23,17 @@
 <div>
     <h1>姓名：{{name}}</h1>
     <h2>{{age}}</h2>
-    <button @click="golist">$route.router.go查看</button>
-    <a v-link="{ name: 'list' }">v-link查看列表</a>
-    <a v-link="{ name: 'index' }">回去主页</a>
-    <a v-link="{ name: 'hello' }">嵌套的路由</a>
+    <button @click="golist">$route.push查看</button>
+    <router-link :to="{ path: '/list' }">v-link查看列表</router-link>
+    <router-link :to="{ path: '/index' }">回去主页</router-link>
+    <router-link :to="{ path: '/index/hello' }">嵌套的路由</router-link>
     <hello></hello>
     <router-view></router-view>
-
 </div>
 </template>
 
-<style lang="sass">
-    $qwe:pink;
+<style lang="scss">
+    $qwe:gray;
     body{
         background-color: $qwe;
         color:red;

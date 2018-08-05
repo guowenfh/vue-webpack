@@ -25,7 +25,7 @@
 </script>
 <template>
 <ul>
-    <li v-for="person in peoples">
+    <li v-for="person in peoples" :key="person.name">
         {{person.name}} : {{person.age}}
     </li>
 </ul>

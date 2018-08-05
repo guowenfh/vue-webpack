@@ -12,7 +12,7 @@
 
 `Loader`可以理解为是模块和资源的转换器，它本身是一个函数，接受源文件作为参数，返回转换的结果。这样，我们就可以通过require来加载任何类型的模块或文件，比如`VUE`、`JSX`、`SASS` 或图片。
 
-先来看看 loader 有哪些特性？(网上复制的，不喜欢可以跳过。[地址](http://www.hubwiz.com/class/5670d0a77e7d40946afc5e65))
+先来看看 loader 有哪些特性？(网上复制的，不喜欢可以跳过。[loaders-地址](https://webpack.docschina.org/concepts/loaders/))
 
 - `Loader`可以通过管道方式链式调用，每个`loader`可以把资源转换成任意格式并传递给下一个`loader`，但是最后一个`loader`必须返回JavaScript。
 - `Loader`可以同步或异步执行。

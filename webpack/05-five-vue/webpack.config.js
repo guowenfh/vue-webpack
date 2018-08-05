@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 // NodeJS中的Path对象，用于处理目录的对象，提高开发效率。
 // 模块导入
 module.exports = {
@@ -8,61 +9,113 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist'),
         // 文件地址，使用绝对路径形式
-        filename: '[name].js',
-        //[name]这里是webpack提供的根据路口文件自动生成的名字
+        filename: 'build.js',
+        //[name]..这里是webpack提供的根据路口文件自动生成的名字
         publicPath: '/dist/'
         // 公共文件生成的地址
     },
+    mode:'development',
+    // 加载器
+    module: {
+        // 加载器,loaders
+        rules: [
+            // 编译css
+            {
+                test: /\.css$/,
+                use: ['vue-style-loader', 'css-loader']
+            },
+            //.scss 编译
+            {
+                test: /\.scss$/,
+                use: [
+                  'vue-style-loader',
+                  'css-loader',
+                  'sass-loader'
+                ],
+              },
+              {
+                test: /\.sass$/,
+                use: [
+                  'vue-style-loader',
+                  'css-loader',
+                  'sass-loader?indentedSyntax'
+                ],
+              },
+            // 解析.vue文件
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                      'scss': [
+                        'vue-style-loader',
+                        'css-loader',
+                        'sass-loader'
+                      ],
+                      'sass': [
+                        'vue-style-loader',
+                        'css-loader',
+                        'sass-loader?indentedSyntax'
+                      ]
+                    }
+                }
+            },
+            // 转化ES6的语法
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options:{
+                    presets: [['env', { modules: false }], 'stage-0']
+                }
+            },
+            // 图片转化，
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    name: '[name].[ext]?[hash]'
+                }
+            }
+        ]
+    },
+    resolve: {
+        // 别名，可以直接使用别名来代表设定的路径以及其他
+        alias: {
+            vue$: 'vue/dist/vue.esm.js',
+            filter: path.join(__dirname, './src/filters'),
+            components: path.join(__dirname, './src/components')
+        },
+        // require时省略的扩展名，如：require('module') 不需要module.js
+        extensions: ['*', '.js', '.vue', '.json']
+    },
     // 服务器配置相关，自动刷新!
-        devServer: {
+    devServer: {
         historyApiFallback: true,
-        hot: false,
+        noInfo: true,
+        overlay: true,
         inline: true,
         progress: true,
     },
-    // "vue-hot-reload-api": "^1.2.2",
-
-    // 加载器
-    module: {
-        // 加载器
-        loaders: [
-        // 解析.vue文件
-            { test: /\.vue$/, loader: 'vue' },
-        // 转化ES6的语法
-            { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-        // 编译css并自动添加css前缀
-            { test: /\.css$/, loader: 'style!css!autoprefixer'},
-        //.scss 文件想要编译，scss就需要这些东西！来编译处理
-        //install css-loader style-loader sass-loader node-sass --save-dev
-            { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
-        // 图片转化，小于8K自动转化为base64的编码
-            { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192'},
-        //html模板编译？
-            { test: /\.(html|tpl)$/, loader: 'html-loader' },
-        ]
-    },
-    // .vue的配置。需要单独出来配置
-        vue: {
-        loaders: {
-            css: 'style!css!autoprefixer!sass?sourceMap'
-        }
-    },
-    // 转化成es5的语法
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
-    },
-    resolve: {
-        // require时省略的扩展名，如：require('module') 不需要module.js
-        extensions: ['', '.js', '.vue'],
-        // 别名，可以直接使用别名来代表设定的路径以及其他
-        alias: {
-            filter: path.join(__dirname, './src/filters'),
-            components: path.join(__dirname, './src/components')
-        }
+    performance: {
+        hints: false
     },
     // 开启source-map，webpack有多种source-map，在官网文档可以查到
-    devtool: 'eval-source-map'
-};
+    devtool: '#eval-source-map'
+}
 
-
+if (process.env.NODE_ENV === 'production') {
+    module.exports.mode = 'production',
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      })
+    ])
+}

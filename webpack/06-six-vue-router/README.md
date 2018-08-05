@@ -2,10 +2,8 @@
 
 在上面的练习当中我们已经成功的加载了一个`.vue`格式的单文件组件，并且实现了在使用vue情况下的自动刷新。
 
-但是我们最终的目的还是要实现单页面应用程序，这个时候我们就必不可少的需要使用到路由管理器来进行SPA的开发，vue官方为我们提供了一个官方库[vue-router](https://github.com/vuejs/vue-router)，并且配有对应的[中文文档](http://vuejs.github.io/vue-router/zh-cn/index.html)。关于里面的内容大家自行前去观看。在这里，只会把我们需要的东西拿出来讲。
+但是我们最终的目的还是要实现单页面应用程序，这个时候我们就必不可少的需要使用到路由管理器来进行SPA的开发，vue官方为我们提供了一个官方库[vue-router](https://github.com/vuejs/vue-router)，并且配有对应的[中文文档](https://router.vuejs.org/zh/)。关于里面的内容大家自行前去观看。在这里，只会把我们需要的东西拿出来讲。
 
-
-[TOC]
 
 ## vue组件
 
@@ -48,47 +46,7 @@
 </div>
 ```
 
-### 使用template标签
-
-在上面这段代码中组件内的内容都被写在`template`属性中，如果组件中的内容继续增加，一堆的引号和加号来拼接这些字符串简直就是噩梦。所以Vue 引入了`template`标签（html5定义的，浏览器默认不去解析里面的内容）。**`<template> 不能用在 <table> 内`**下面来看看它的使用方法：
-
-```html
-    <script src="js/vue.js"></script>
-<body>
-<!-- 使用 template 并且添加选择器(只能使用id)-->
-    <template id="myTemp">
-        <h2>This is Template </h2>
-        <p>add ...</p>
-    </template>
-    <div id="app">
-        <my-component></my-component>
-        <my-component></my-component>
-    </div>
-
-    <script>
-        Vue.component("my-component", {
-            template:"#myTemp"//对应上面定义的template标签中的选择器
-        })
-        new Vue({
-            el:"#app"
-        });
-    </script>
-</body>
-```
-
-可以看到在注册组件中，可以`template`可以使用选择器来获取到上面我们`<template>`标签中的内容。所以这里应该会被渲染为：
-
-```html
-<div id="app">
-    <h2>This is Template </h2>
-    <p>add ...</p>
-    <h2>This is Template </h2>
-    <p>add ...</p>
-</div>
-```
-
-
-组件的基础介绍就到这，更多详细内容请移步[官网](http://cn.vuejs.org/guide/) 
+组件的基础介绍就到这，更多详细内容请移步[官网](http://cn.vuejs.org/guide/),有着非常清晰的讲解。
 
 ## vue-router
 
@@ -104,7 +62,7 @@ Vue.use(VueRouter);
 
 ### 起步
 
-其实这一部分`vue-router`的[中文文档](http://vuejs.github.io/vue-router/zh-cn/basic.html)中已经讲的非常详细了。。在这里与它不同的是它用的`CommonJS`的规范来进行模块安装，而我使用ES6的import，有兴趣自己去看- -。其他的内容我就直接扒下来了。
+其实这一部分`vue-router`的[中文文档](https://router.vuejs.org/zh/guide/)中已经讲的非常详细了。。在这里与它不同的是它用的`CommonJS`的规范来进行模块安装，而我使用ES6的import，有兴趣自己去看- -。其他的内容我就直接扒下来了。
 
 html:
 
@@ -152,8 +110,8 @@ router.map({
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 router.start(App, '#app')
 ```
- 
-我个人感觉这部分还是很好理解的，官方也给了一个[在线示例应用](http://jsfiddle.net/yyx990803/xyu276sa/)。很好的展现了它的路由切换。
+
+我个人感觉这部分还是很好理解的，官方也给了一系列的例子：[查看仓库的 README.md 来运行它们](https://github.com/vuejs/vue-router/tree/dev/examples)。很好的展现了它的路由切换。
 
 简单的介绍到这，下面最重要的部分到了，看看如何结合我们定义的`.vue`单文件组件。
 
@@ -163,79 +121,107 @@ router.start(App, '#app')
 
 ### 定义路由规则
 
-**最主要是`main.js`**的变化，直接在文件中讲解了：
+** 最主要是`main.js` ** 的变化，直接在文件中讲解了：
 
 ```js
-// 引入vue以及vue-router
-import Vue from "vue";
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
-// 引入组件！直接使用es6的语法
-import index from './components/app.vue';
-import list from './components/list.vue';
-import hello from './components/hello.vue';
-//开启debug模式
-Vue.config.debug = true;
-// new Vue(app);//这是上一篇用到的，新建一个vue实例，现在使用vue-router就不需要了。
-// 路由器需要一个根组件。
-var App = Vue.extend({});
-// 创建一个路由器实例
-var router = new VueRouter();
-// 每条路由规则应该映射到一个组件。这里的“组件”可以是一个使用 Vue.extend创建的组件构造函数，也可以是一个组件选项对象。
-// 稍后我们会讲解嵌套路由
-router.map({//定义路由映射
-    '/index':{//访问地址
-        name:'index',//定义路由的名字。方便使用。
-        component:index,//引用的组件名称，对应上面使用`import`导入的组件
-        //component:require("components/app.vue")//还可以直接使用这样的方式也是没问题的。不过会没有import集中引入那么直观
-    },
-    '/list': {
-        name:'list',
-        component: list
-    },
-});
-router.redirect({//定义全局的重定向规则。全局的重定向会在匹配当前路径之前执行。
-    '*':"/index"//重定向任意未匹配路径到/index
-});
-// 现在我们可以启动应用了！
-// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
-router.start(App, '#app');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+// 引入vue以及vue-router的。
+// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+// 1. 定义 (路由) 组件。
+// 可以从其他文件 import 进来
+
+// 引入组件！
+import App from './App.vue'
+import Index from './components/index.vue'
+import List from './components/list.vue'
+import Hello from './components/hello.vue'
+
+// 2. 定义路由
+// 每个路由应该映射一个组件。 其中"component" 可以是
+// 通过 Vue.extend() 创建的组件构造器，
+// 或者，只是一个组件配置对象。
+// 我们晚点再讨论嵌套路由。
+const routes = [
+  {
+    path: '/index',
+    component: Index,
+    children: [
+        { path: 'hello', component: Hello }
+    ]
+  },
+  {
+    path: '/list',
+    component: List
+  },
+  {
+    path: '*',
+    redirect: '/index'
+  }
+]
+
+// 3. 创建 router 实例，然后传 `routes` 配置
+// 你还可以传别的配置参数, 不过先这么简单着吧。
+const router = new VueRouter({
+  routes // (缩写) 相当于 routes: routes
+})
+
+// 4. 创建和挂载根实例。
+// 记得要通过 router 配置参数注入路由，
+// 从而让整个应用都有路由功能
+new Vue({
+  el: '#app',
+  router,
+  render: h => h(App)
+})
+
+// 现在，应用已经启动了！
 
 ```
-在index.html需要有用于渲染匹配的组件，如下
+App.vue 需要有用于渲染匹配的组件，如下
+
 ```html
-    <div id="app">
-        <router-view></router-view>
-    </div>
+<template>
+    <router-view></router-view>
+</template>
 ```
 
-现在当我们运行 `npm start` 进入`http://localhost:8080/`就会自动跳转到`http://localhost:8080/#!/index`，并且读取里面的内容。
+现在当我们运行 `npm start` 进入`http://localhost:8080/`就会自动跳转到`http://localhost:8080/#/index`，并且读取里面的内容。
 
 
 ### 实现路由跳转
 
-主要抽出`app.vue`中的内容来讲解，的内容是：(`list.vue`里面的内容自行设置查看吧)
+主要抽出`index.vue`中的内容来讲解，的内容是：(`list.vue`里面的内容自行设置查看吧)
+
 ```html
 <template>
 <div>
     <h1>姓名：{{name}}</h1>
     <h2>{{age}}</h2>
-    <button @click="golist">$route.router.go查看</button>
-    <a v-link="{ name: 'list' }">v-link查看列表</a>
-    <a v-link="{ name: 'index' }">回去主页</a>
+    <button @click="golist">$route.push查看</button>
+    <router-link :to="{ path: '/list' }">v-link查看列表</router-link>
+    <router-link :to="{ path: '/index' }">回去主页</router-link>
+    <router-link :to="{ path: '/index/hello' }">嵌套的路由</router-link>
+    <hello></hello>
+    <router-view></router-view>
 </div>
 </template>
 <script>
-    export default {//这里是官方的写法，默认导出，ES6
-        data () { //ES6，等同于data:function(){}
-            return {    //必须使用这样的形式，才能创建出单一的作用域
+    // import hello from "./hello.vue"
+    export default {
+        data () {
+            return {
                 name:"guowenfh",
                 age:"21"
             }
         },
+
         methods :{
-            golist () {//方法，定义路由跳转，注意这里必须使用this，不然报错
-                this.$route.router.go({name:"list"});
+            golist (){
+                this.$router.push({path:"/list"})
+                // this.$route.router.go({name:"list"});
             }
         }
     }
@@ -246,7 +232,7 @@ router.start(App, '#app');
 
 因为自刷新的缘故，直接切换到浏览器。
 
-点击上面使用的`v-link`，与`router.go`的方式都可以跳转到`list`定义的路由。（**观察浏览器地址栏的变化**）在这里我们使用的`{name:"list"}`，使用`{ path: '/list' }`会有同样的效果。
+点击上面使用的`router-link`，与`this.$router.push`的方式都可以跳转到`list`定义的路由。（**观察浏览器地址栏的变化**）在这里我们使用 `{ path: '/list' }` ,如有别名的话，使用的`{name:"list"}`，会有同样的效果。
 
 ## Vue组件的嵌套
 
@@ -283,21 +269,20 @@ export default {
 看`main.js`下面这部分的代码：
 
 ```js
-router.map({
-    '/index':{
-        name:'index',
-        component:index,
-        // 在/index下设置一个子路由
-        subRoutes:{ 
-            // 当匹配到/index/hello时，会在index的<router-view>内渲染
-            '/hello':{
-                name:'hello',//可有可无，主要是为了方便使用
-                // 一个hello组件
-                component:hello
-            }
+  {
+    path: '/index',
+    component: Index,
+    // 在/index下设置一个子路由
+    children: [
+         // 当匹配到/index/hello时，会在index的<router-view>内渲染
+        {
+            path: 'hello',
+            name:'hello',//可有可无，主要是为了方便使用
+            // 一个hello组件
+            component: Hello
         }
-    },
-});
+    ]
+  }
 ```
 
 第二步：在组件中添加`<router-view>`
@@ -308,13 +293,13 @@ router.map({
 
 第三步：写入跳转路径
 
-还是在`app.vue`中：
+还是在`index.vue`中：
 ```html
-<a v-link="{ name: 'index' }">回去主页</a>
+<router-link :to="{ path: '/index' }">回去主页</router-link>
 <!-- 点击这两个标签就会实现页面内的切换效果 -->
-<a v-link="{ name: 'hello' }">嵌套的路由</a>
+<router-link :to="{ path: '/index/hello' }">嵌套的路由</router-link>
 ```
-，切换到浏览器，点击该`嵌套的路由`即可让`hello.vue`中的展现出来，在这里直接使用了`v-link`来实现跳转（知道为什么要写name了吧。。如果使用path会是这样的`{ path: '/index/hello' }`- -。 ） ，当然`router.go`同理。（注意在点击两个不同的文字时，地址栏的变化，以及展现内容的切换）
+，切换到浏览器，点击该`嵌套的路由`即可让`hello.vue`中的展现出来，在这里直接使用了`router-link`来实现跳转 ，当然`$router.push`同理。（注意在点击两个不同的文字时，地址栏的变化，以及展现内容的切换）
 
 
 **注意：**

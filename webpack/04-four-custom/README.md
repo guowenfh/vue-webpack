@@ -20,7 +20,7 @@ rules: [
         loader: 'url-loader',
         options: {
             limit: 8192,
-            name: path.posix.join('dist','img/[name].[hash:7].[ext]')
+            name: path.posix.join('','img/[name].[hash:7].[ext]')
         }
         // 添加到这并且会按照文件大小, 或者转化为 base64, 或者单独作为文件
         //在大小限制可以name属性/[name].[ext]，会将我们的文件生成在设定的文件夹下。
@@ -100,7 +100,7 @@ npx webpack-dev-server --config ./webpack.config.js
 
 ## 试试vue
 
-我们来试试使用vue能配合webpack能不能实现自动刷新。(有关vuejs的知识，大家可以可以先自行上[官网查看](http://cn.vuejs.org/guide/)，我在接下来可能也会一步一步的把vue的例子全部敲一遍，再放到github上来让点评)
+我们来试试使用vue能配合webpack能不能实现自动刷新。(有关vuejs的知识，大家可以可以先自行上[官网查看](http://cn.vuejs.org/guide/))
 
 首先运行`npm install vue -save`将vue添加到我们的项目依赖中去。
 
@@ -109,7 +109,7 @@ npx webpack-dev-server --config ./webpack.config.js
 ```js
 // import Vue form ("vue") //如果你安装了babel-loader的话，可以直接使用ES6的语法
 
-const Vue =require('vue/dist/vue'");
+const Vue =require('vue/dist/vue');
 
 new Vue({
   el: '#main',
@@ -122,6 +122,6 @@ new Vue({
 
 同样在`index.html`中添加`{{ meassge }}`来响应vue的数据绑定。
 
-运行`webpack-dev-server`。去浏览器查看试试效果吧！任意改变`message`中的值，可以看到浏览器会自动刷新。并且将改变的值展示在眼前。（有可能只在`http://localhost:8080/webpack-dev-server/`才会自动刷新）
+运行`webpack-dev-server`。去浏览器查看试试效果吧！`http://localhost:8080`。 任意改变`message`中的值，可以看到浏览器会自动刷新。并且将改变的值展示在眼前。（有可能只在`http://localhost:8080/webpack-dev-server/`才会自动刷新）
 
 自动刷新都配好了。下面我们就来试试怎么加载vue的文件，来实现单文件组件！

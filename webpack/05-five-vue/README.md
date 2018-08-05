@@ -42,31 +42,36 @@
     "description": "vue+webapck", //描述
     "main": "index.js", //主文件
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack-dev-server --inline"
+        "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
     }, //scripts指定了运行脚本命令的npm命令行缩写，比如这是的start指定了运行npm run start时，所要执行的命令。
     "dependencies": { //项目依赖
-        "vue": "^1.0.18"
+        "vue": "^2.5.17"
     },
+    // 编译成的 es 版本
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ],
     "devDependencies": { //各种各样的loader，用来解析想相应的文件格式。要解析vue并且完成相应的功能，这些基本都是必须的。
-        "autoprefixer-loader": "^2.0.0",
-        "babel": "^6.3.13",
-        "babel-core": "^6.3.21",
-        "babel-loader": "^6.2.0",
-        "babel-plugin-transform-runtime": "^6.3.13",
-        "babel-preset-es2015": "^6.3.13",
-        "babel-runtime": "^5.8.34",
-        "css-loader": "^0.16.0",
-        "file-loader": "^0.8.5",
-        "html-loader": "^0.3.0",
-        "node-sass": "^3.4.2",
-        "sass-loader": "^3.2.0",
-        "style-loader": "^0.12.3",
-        "url-loader": "^0.5.6",
-        "vue-html-loader": "^1.2.0",
-        "vue-loader": "^7.2.0",
-        "webpack": "^1.12.0",
-        "webpack-dev-server": "^1.14.0"
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-0": "^6.24.1",
+        "babel-preset-stage-3": "^6.24.1",
+        "cross-env": "^5.2.0",
+        "css-loader": "^1.0.0",
+        "file-loader": "^1.1.11",
+        "node-sass": "^4.9.2",
+        "sass-loader": "^7.1.0",
+        "style-loader": "^0.21.0",
+        "url-loader": "^1.0.1",
+        "vue-loader": "^14.2.3",
+        "vue-style-loader": "^4.1.1",
+        "vue-template-compiler": "^2.5.17",
+        "webpack": "^4.16.4",
+        "webpack-cli": "^3.1.0",
+        "webpack-dev-server": "^3.1.5"
     },
     "author": "guowenfh", //作者
     "license": "MIT", //开源协议
@@ -86,7 +91,8 @@
 
 
 ```javascript
-var path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 // NodeJS中的Path对象，用于处理目录的对象，提高开发效率。
 // 模块导入
 module.exports = {
@@ -96,60 +102,98 @@ module.exports = {
     output: {
         path: path.join(__dirname, './dist'),
         // 文件地址，使用绝对路径形式
-        filename: '[name].js',
-        //[name]这里是webpack提供的根据路口文件自动生成的名字
+        filename: 'build.js',
+        //[name]..这里是webpack提供的根据路口文件自动生成的名字
         publicPath: '/dist/'
         // 公共文件生成的地址
+    },
+    mode:'development',
+    // 加载器
+    module: {
+        // 加载器,loaders
+        rules: [
+            // 编译css
+            {
+                test: /\.css$/,
+                use: ['vue-style-loader', 'css-loader']
+            },
+            //.scss 编译
+            {
+                test: /\.scss$/,
+                use: [
+                  'vue-style-loader',
+                  'css-loader',
+                  'sass-loader'
+                ],
+              },
+              {
+                test: /\.sass$/,
+                use: [
+                  'vue-style-loader',
+                  'css-loader',
+                  'sass-loader?indentedSyntax'
+                ],
+              },
+            // 解析.vue文件
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                      'scss': [
+                        'vue-style-loader',
+                        'css-loader',
+                        'sass-loader'
+                      ],
+                      'sass': [
+                        'vue-style-loader',
+                        'css-loader',
+                        'sass-loader?indentedSyntax'
+                      ]
+                    }
+                }
+            },
+            // 转化ES6的语法
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options:{
+                    presets: [['env', { modules: false }], 'stage-0']
+                }
+            },
+            // 图片转化，
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    name: '[name].[ext]?[hash]'
+                }
+            }
+        ]
+    },
+    resolve: {
+        // 别名，可以直接使用别名来代表设定的路径以及其他
+        alias: {
+            vue$: 'vue/dist/vue.esm.js',
+            filter: path.join(__dirname, './src/filters'),
+            components: path.join(__dirname, './src/components')
+        },
+        // require时省略的扩展名，如：require('module') 不需要module.js
+        extensions: ['*', '.js', '.vue', '.json']
     },
     // 服务器配置相关，自动刷新!
     devServer: {
         historyApiFallback: true,
-        hot: false,
-        inline: true,
-        progress: true,
+        noInfo: true,
+        overlay: true
     },
-    // 加载器
-    module: {
-        // 加载器
-        loaders: [
-        // 解析.vue文件
-            { test: /\.vue$/, loader: 'vue' },
-        // 转化ES6的语法
-            { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-        // 编译css并自动添加css前缀
-            { test: /\.css$/, loader: 'style!css!autoprefixer'},
-        //.scss 文件想要编译，scss就需要这些东西！来编译处理
-        //install css-loader style-loader sass-loader node-sass --save-dev
-            { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
-        // 图片转化，小于8K自动转化为base64的编码
-            { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192'},
-        //html模板编译？
-            { test: /\.(html|tpl)$/, loader: 'html-loader' },
-        ]
-    },
-    // .vue的配置。需要单独出来配置，其实没什么必要--因为我删了也没保错，不过这里就留这把，因为官网文档里是可以有单独的配置的。
-    vue: {
-        loaders: {
-            css: 'style!css!autoprefixer',
-        }
-    },
-    // 转化成es5的语法
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
-    },
-    resolve: {
-        // require时省略的扩展名，如：require('module') 不需要module.js
-        extensions: ['', '.js', '.vue'],
-        // 别名，可以直接使用别名来代表设定的路径以及其他
-        alias: {
-            filter: path.join(__dirname, './src/filters'),
-            components: path.join(__dirname, './src/components')
-        }
+    performance: {
+        hints: false
     },
     // 开启source-map，webpack有多种source-map，在官网文档可以查到
-    devtool: 'eval-source-map'
-};
+    devtool: '#eval-source-map'
+}
 
 ```
 
@@ -164,85 +208,94 @@ module.exports = {
 index.html：
 
 ```html
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>webpack vue</title>
-        <style>
-            #app {
-                margin: 20px auto;
-                width: 800px;
-                height: 600px;
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>webpack vue</title>
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        #app {
+            margin: 20px auto;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
 
-    <body>
-        <div id="app"></div>
-        <script src="dist/main.js"></script>
-    </body>
+<body>
 
-    </html>
+    <div id="app"></div>
+
+    <script src="./dist/build.js"></script>
+</body>
+
+</html>
+
 ```
 
 这里是main.js的内容：
 
 ```javascript
 //es6语法：
-import Vue from "../node_modules/vue/dist/vue.min.js";//其实不用写完，会自动查找。
-//外部引入别的库都可以用这样的方式，比如jquery等。。
+import Vue from "vue";
 //引入我们编写的测试用vue文件。
-import app from './components/app';
+import App from './components/app';
 
 Vue.config.debug = true;//开启错误提示
 
-new Vue(app);
+new Vue({
+    el: '#app',
+    render: h => h(App)
+})
 
 ```
 
 这里是app.vue：
 
 ```html
-<script>
-    //es6
-    export default {
-        el:"#app",
-         //data:function(){}，下面是es6写法
-         data () {
-            return {
-                name:"guowenfh",
-                age:"2q1"
-            }
-        }
-    }
-</script>
 <template>
-    <div>
+    <div id="app">
         <h1>姓名：{{name}}</h1>
         <h2>{{age}}</h2>
     </div>
 </template>
-<style lang="sass">
-    /*一定要加lang不然无法编译*/
-    /*测试一下对sass的编译*/
-    $qwe:#098;
-    body{
-        background-color: $qwe;
-        h1{
-            background-color: #eee;
-            color: red;
-            transform: translate(10%, 10%);/*测试自动添加前缀*/
-        }
-        h1:hover{
-            height:100px;
-        }
-
-        h2{
-            background-color: #999;
-        }
+<script>
+export default {
+  name: 'app',
+  data() {
+    return {
+      name: 'guowenfh',
+      age: '23'
     }
+  }
+}
+</script>
+<style lang="scss" >
+$qwe: #098;
+body {
+  background-color: $qwe;
+  h1 {
+    background-color: #eee;
+    color: yellowgreen;
+    transform: translate(10%, 10%);
+  }
+
+  h1:hover {
+    height: 100px;
+  }
+
+  h2 {
+    background-color: #999;
+  }
+}
 </style>
 
 ```
@@ -251,24 +304,22 @@ new Vue(app);
 下面再单独的再谈一下关于自动刷新的实现，首先需要说明，在上一篇博客中的自动刷新实现，是有问题的。只能改变css样式，使颜色进行变化。对于html里面的内容改变时，浏览器并不会自动刷新。
 
 **注意点一：**
-首先我们看到`package.json`中`scripts`字段中的`"start": "webpack-dev-server --inline"`。这里如果按照网上的方法在后面再添加上`--hot`的话，只会对于`app.vue`中的`<style>`标签内的css起效果。
+首先我们看到`package.json`中`scripts`字段中的`"start": "cross-env NODE_ENV=development webpack-dev-server --open --hot"`。 这里开启了 热加载 以及自动打开浏览器。
 
 **注意点二：**
-因为我们没有加`--hot`，所以在`webpack.cofig.js`中需要对于`devServer`进行一些配置，如下：（主要是是`hot`设置为了false）。
+在`webpack.cofig.js`中还有其余对于`devServer`进行一些配置，如下：
 
 ```js
-devServer: {
-    historyApiFallback: true,
-    hot: false,
-    inline: true,
-    progress: true,
-}
+    devServer: {
+        historyApiFallback: true,
+        noInfo: true,
+        overlay: true,
+        inline: true,
+        progress: true, // 进度
+    },
 ```
-这样设置了之后按下保存相当于按下了F5浏览器整个刷新。而不是局部刷新。（如果你实现了局部刷新，并且没有其他问题，那请教教我^_^）
 
-**注意点三：**
-
-注意`package.json`的loader安装中的`"vue-hot-reload-api": "^1.2.2"`。它有可能是导致你不能自动刷新的凶手(我现在都没搞明白到底该安装，还是取消)
+这样安装设置完成之后，就有了自动局部更新了！！
 
 ## 结束
 
@@ -279,6 +330,31 @@ devServer: {
 看看浏览器会不会自动刷新？
 
 ---
+
+## 添加
+
+开发环境可以了，但是生产环境呢？在 `webpack.config.js`我们再来增加一些配置
+
+
+```js
+if (process.env.NODE_ENV === 'production') {
+    module.exports.mode = 'production',
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      })
+    ])
+}
+```
+然后再加一个 npm script 。 `"build": "cross-env NODE_ENV=production webpack --progress --hide-modules"`
+运行 `npm run build ` 我们就可以将我们刚刚开发的内容进行压缩打包了。
 
 如果你按照我的步骤，并且，npm包安装没有错误的话，应该就能成功了。
 
