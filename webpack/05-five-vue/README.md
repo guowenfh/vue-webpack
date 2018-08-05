@@ -92,6 +92,7 @@
 
 ```javascript
 const path = require('path')
+const webpack = require('webpack')
 // NodeJS中的Path对象，用于处理目录的对象，提高开发效率。
 // 模块导入
 module.exports = {
@@ -306,7 +307,7 @@ body {
 首先我们看到`package.json`中`scripts`字段中的`"start": "cross-env NODE_ENV=development webpack-dev-server --open --hot"`。 这里开启了 热加载 以及自动打开浏览器。
 
 **注意点二：**
-因为我们没有加`--hot`，所以在`webpack.cofig.js`中需要对于`devServer`进行一些配置，如下：
+在`webpack.cofig.js`中还有其余对于`devServer`进行一些配置，如下：
 
 ```js
     devServer: {
@@ -329,6 +330,31 @@ body {
 看看浏览器会不会自动刷新？
 
 ---
+
+## 添加
+
+开发环境可以了，但是生产环境呢？在 `webpack.config.js`我们再来增加一些配置
+
+
+```js
+if (process.env.NODE_ENV === 'production') {
+    module.exports.mode = 'production',
+    module.exports.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      })
+    ])
+}
+```
+然后再加一个 npm script 。 `"build": "cross-env NODE_ENV=production webpack --progress --hide-modules"`
+运行 `npm run build ` 我们就可以将我们刚刚开发的内容进行压缩打包了。
 
 如果你按照我的步骤，并且，npm包安装没有错误的话，应该就能成功了。
 

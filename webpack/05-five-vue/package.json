@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start":"npm run dev",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "browserslist": [
     "> 1%",
@@ -19,7 +20,6 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
